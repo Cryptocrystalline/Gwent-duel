@@ -1,0 +1,58 @@
+#include <cstdio>
+#include <iostream>
+using namespace std;
+
+int duel(int* p, int* a);
+int main(void)
+{
+	int p[2];
+	int a[2];
+    char c;
+	
+	do
+	{
+		{
+			cout << "Ally's power:" << endl;
+		    cin >> p[0];
+		    cout << "Ally's armor:" << endl;
+		    cin >> a[0];
+		    cout << "Enemy's power:" << endl;
+		    cin >> p[1];
+		    cout << "Enemy's armor:" << endl;
+		    cin >> a[1]; 
+		}
+		
+		duel(p, a);
+		cout << "Duel completed.\n" << endl << "press any single key to continue, q to quit." << endl;
+		
+		cin >> c;
+	} while (c!='q');
+	return 0;
+}
+int duel(int* p, int* a)
+{
+	int dam, mark = 1;
+
+
+	while (p[0] > 0 && p[1] > 0)
+	{
+		if (mark == 1)
+			dam = p[0];
+		else
+			dam = p[1];
+
+		if (dam < a[mark])
+			a[mark] -= dam;
+		else
+		{
+			p[mark] -= dam - a[mark];
+			a[mark] = 0;
+		}
+		mark == 1 ? mark = 0 : mark = 1;
+	}
+	if (p[0] > p[1])
+		printf("Ally's rest power is %d\n", p[0]);
+	else
+		printf("Lost the duel and enemy's rest power is %d\n", p[1]);
+	return 0;
+}
